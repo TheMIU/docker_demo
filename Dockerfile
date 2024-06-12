@@ -1,13 +1,6 @@
-# commands : https://docs.docker.com/reference/cli/docker/
+FROM nginx
 
-# base image : alpine (a linux kernal)
-FROM alpine:3.14
-
-CMD ["echo", "Hello Docker!"]
-
-# Build
-# docker build -t test . 
-# (repository name must be lowercase)
-
-# Run 
-# docker run test
+# docker build -t web-test .
+# docker run -p 8080:80 web-test  # <- bind port
+# check localhost  http://localhost:8080/
+# you should see "Welcome to nginx!" page
