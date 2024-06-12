@@ -1,12 +1,11 @@
-FROM python
-# https://hub.docker.com/_/python/
-
-# define working directory
-WORKDIR /usr/app/src/
-
-# COPY <source> <destination>
-COPY html /usr/share/nginx/html 
-COPY python/demo.py $WORKDIR
-
-CMD [ "python" , "./demo.py" ]
-# console should print "Hello docker - from python"
+# syntax=docker/dockerfile:1
+FROM python:3.10-alpine
+WORKDIR /code
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+EXPOSE 5000
+COPY . .
+CMD ["flask", "run", "--debug"]
